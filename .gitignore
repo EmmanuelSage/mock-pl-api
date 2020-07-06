@@ -9,6 +9,9 @@ logs
 
 npm-debug.log*
 
+# vscode file
+.VSCode
+
 # Runtime data
 pids
 *.pid
