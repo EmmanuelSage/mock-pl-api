@@ -1,0 +1,26 @@
+{
+	"env": {
+		"node": true,
+		"es2020": true,
+		"jest": true
+	},
+	"extends": [
+		"airbnb-base",
+		"prettier",
+		"plugin:jest/recommended"
+	],
+	"plugins": [
+		"prettier",
+		"jest"
+	],
+	"parserOptions": {
+		"ecmaVersion": 11,
+		"sourceType": "module"
+	},
+	"rules": {
+		"prettier/prettier": "error",
+		"jest/no-disabled-tests": "warn",
+		"jest/no-identical-title": "error",
+		"jest/valid-expect": "error"
+	}
+}
