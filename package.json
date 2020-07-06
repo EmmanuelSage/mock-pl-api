@@ -5,10 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/app.js",
-    "test": "jest --runInBand",
-    "test:watch": "jest --watchAll --runInBand",
-    "test:coverage": "jest --coverage",
-    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+    "test": "NODE_ENV=test jest --runInBand",
+    "test:watch": "NODE_ENV=test jest --watchAll --runInBand",
+    "test:coverage": "NODE_ENV=test jest --coverage",
+    "test:coveralls": "NODE_ENV=test jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "jest": {
     "testEnvironment": "node"
@@ -41,6 +41,7 @@
     "@babel/node": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
     "@babel/register": "^7.10.4",
+    "@shelf/jest-mongodb": "^1.1.5",
     "coveralls": "^3.1.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
@@ -51,6 +52,7 @@
     "husky": "^4.2.5",
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",
+    "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "prettier-eslint": "^11.0.0",
     "prettier-eslint-cli": "^5.0.0",
@@ -59,6 +61,6 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.4"
+    "mongoose": "^5.9.21"
   }
 }

@@ -1,5 +1,5 @@
 import express from 'express'
-import 'dotenv/config'
+import './db/mongoose'
 
 const app = express()
 
