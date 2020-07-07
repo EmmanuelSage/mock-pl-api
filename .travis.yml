@@ -5,11 +5,19 @@ language: node_js
 node_js:
   - "stable"
 
-script:
-  - npm run test:coveralls
+services:
+  - mongodb
 
 notifications:
   email: false
+
+env:
+  TEST_MONGODB_URI: "mongodb://127.0.0.1:27017/mplapiTestTravis"
+  global:
+    - NODE_ENV=test
+
+before_script:
+  - sleep 15
 
 after_success:
   - npm run test:coveralls
