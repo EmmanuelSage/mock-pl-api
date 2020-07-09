@@ -6,16 +6,6 @@ const teamSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  key: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  code: {
-    type: String,
-    required: true,
-    trim: true,
-  },
 })
 
 const Team = mongoose.model('Team', teamSchema)

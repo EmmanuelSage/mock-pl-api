@@ -94,6 +94,17 @@ const validate = {
 
     return errors
   },
+
+  teamValidate(req) {
+    const {name} = req.body
+
+    const errors = []
+
+    if (!name || typeof name !== 'string') {
+      errors.push({nameError: 'a valid team name is required'})
+    }
+    return errors
+  },
 }
 
 export default validate

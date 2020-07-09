@@ -1,10 +1,18 @@
 import mongoose from 'mongoose'
 import Fixture from '../../models/fixture'
-import {connect} from '../../setupTest/config'
+import {connect, clearDatabase, closeDatabase} from '../../setupTest/config'
 
 describe('Fixture model tests', () => {
   beforeAll(async () => {
     await connect()
+  })
+
+  afterEach(async () => {
+    await clearDatabase()
+  })
+
+  afterAll(async () => {
+    await closeDatabase()
   })
 
   const fixtureData = {

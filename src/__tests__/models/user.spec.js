@@ -1,9 +1,17 @@
 import User from '../../models/user'
-import {connect} from '../../setupTest/config'
+import {connect, clearDatabase, closeDatabase} from '../../setupTest/config'
 
 describe('User model tests', () => {
   beforeAll(async () => {
     await connect()
+  })
+
+  afterEach(async () => {
+    await clearDatabase()
+  })
+
+  afterAll(async () => {
+    await closeDatabase()
   })
 
   const userData = {
