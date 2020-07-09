@@ -1,17 +1,9 @@
-import mongoose from 'mongoose'
 import Team from '../../models/team'
+import {connect} from '../../setupTest/config'
 
 describe('Team model tests', () => {
   beforeAll(async () => {
-    await mongoose.connect(global.__MONGO_URI__, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-  })
-
-  afterAll(async (done) => {
-    await mongoose.connection.close()
-    done()
+    await connect()
   })
 
   const teamData = {

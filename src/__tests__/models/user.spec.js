@@ -1,16 +1,9 @@
-import mongoose from 'mongoose'
 import User from '../../models/user'
+import {connect} from '../../setupTest/config'
 
 describe('User model tests', () => {
   beforeAll(async () => {
-    await mongoose.connect(global.__MONGO_URI__, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-  })
-
-  afterAll(async () => {
-    await mongoose.connection.close()
+    await connect()
   })
 
   const userData = {

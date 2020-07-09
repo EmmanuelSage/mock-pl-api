@@ -4,9 +4,8 @@ import mongoose from 'mongoose'
 export const connect = async () => {
   await mongoose.connect(global.__MONGO_URI__, {
     useNewUrlParser: true,
-    reconnectTries: Number.MAX_VALUE,
-    autoReconnect: true,
-    reconnectInterval: 1000,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
   })
 }
 

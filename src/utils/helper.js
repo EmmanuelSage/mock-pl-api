@@ -29,8 +29,8 @@ export const isValidObjectId = (id) => {
   return false
 }
 
-export const generateObjectId = () => {
-  const newId = new ObjectId()
+export const generateObjectId = (id) => {
+  const newId = id ? new ObjectId(id) : new ObjectId()
   return newId
 }
 
