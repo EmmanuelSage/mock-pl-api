@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/app.js",
+    "start": "nodemon --exec babel-node src/index.js",
     "test": "NODE_ENV=test jest --runInBand",
     "test:watch": "NODE_ENV=test jest --watchAll --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage",
@@ -59,8 +59,11 @@
     "supertest": "^4.0.2"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.21"
   }
 }
