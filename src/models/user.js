@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import isValidEmail from '../utils/helper'
+import {isValidEmail} from '../utils/helper'
 
 const userSchema = new mongoose.Schema({
   fullName: {
