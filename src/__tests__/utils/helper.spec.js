@@ -1,4 +1,4 @@
-import isValidEmail from '../../utils/helper'
+import {isValidEmail} from '../../utils/helper'
 
 it('Should return true for valid email', async () => {
   const isValid = isValidEmail('xyklue@gmail.com')
