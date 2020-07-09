@@ -1,4 +1,4 @@
-import {isValidEmail, isValidName} from './helper'
+import {isValidEmail, isValidName, isValidObjectId} from './helper'
 
 const validate = {
   validateUser(req) {
@@ -38,6 +38,60 @@ const validate = {
         password: 'Email or password is incorrect',
       })
     }
+    return errors
+  },
+
+  fixtureValidate(req) {
+    const {homeTeam, awayTeam, matchDate} = req.body
+    const errors = []
+
+    if (!homeTeam || !isValidObjectId(homeTeam)) {
+      errors.push({homeTeamError: 'homeTeam field is invalid'})
+    }
+    if (!awayTeam || !isValidObjectId(awayTeam)) {
+      errors.push({awayTeamError: 'awayTeam field is invalid'})
+    }
+
+    if (!matchDate) {
+      errors.push({matchDateError: 'matchDate field is invalid'})
+    } else {
+      const validDay = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+      if (!validDay.test(matchDate)) {
+        errors.push({
+          matchDateError: `matchDate field format should be yyyy-mm-dd`,
+        })
+      }
+      const currentDate = new Date()
+      const matchDateTest = `${matchDate.split('-')[2]}-${
+        matchDate.split('-')[1]
+      }-${matchDate.split('-')[0]}`
+      const currentMatchDate = new Date(matchDateTest)
+      if (currentMatchDate !== currentDate && currentMatchDate < currentDate) {
+        errors.push({matchDateError: `Fixture date must be in the future`})
+      }
+    }
+
+    if (homeTeam && awayTeam && homeTeam === awayTeam) {
+      errors.push({duplicateTeamError: 'Fixture must be with different teams'})
+    }
+
+    const updates = Object.keys(req.body)
+    const allowedUpdates = [
+      'matchDate',
+      'homeTeam',
+      'awayTeam',
+      'homeTeamScore',
+      'awayTeamScore',
+      'pendingMatch',
+    ]
+    const isValidOperation = updates.every((update) =>
+      allowedUpdates.includes(update)
+    )
+
+    if (!isValidOperation) {
+      errors.push({validFieldsError: 'Invalid updates found!'})
+    }
+
     return errors
   },
 }
