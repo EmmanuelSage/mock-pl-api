@@ -2,10 +2,6 @@ import request from 'supertest'
 import app from '../src/app'
 import mock from './fixtures/mock'
 
-beforeAll(async () => {
-  jest.setTimeout(10000)
-})
-
 describe('User Sign Up', () => {
   it('should sign up a user', async () => {
     const res = await request(app)

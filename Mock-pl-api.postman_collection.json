@@ -1,0 +1,460 @@
+{
+	"info": {
+		"_postman_id": "122d0a09-73bf-4003-bc87-b73c61d05719",
+		"name": "Mock-pl-api",
+		"description": "# Mock-pl-api\n\nThis is a Mock Premier League api collection\n\n#### Admin accounts \n```\nAdmin accounts which are used to\nsignup/login\nmanage teams (add, remove, edit, view)\ncreate fixtures (add, remove, edit, view)\nGenerate unique links for fixture\n```\n\n#### Users accounts \n\n```\nsignup/login\nview teams\nview completed fixtures\nview pending fixtures\nrobustly search fixtures/teams\nOnly the search API should be availble to the public\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "team",
+			"item": [
+				{
+					"name": "/teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Leicester City FC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/teams",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/teams",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/teams/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/teams/5f077041b9ebd07451b7933b",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"teams",
+								"5f077041b9ebd07451b7933b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/teams/5f085da4030d2421458435cc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"teams",
+								"5f085da4030d2421458435cc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/teams",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Newcastle United FC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/teams/5f06df030a0ce8352ec1f991",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"teams",
+								"5f06df030a0ce8352ec1f991"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/search/teams?query=",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/search/teams?query=l",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"search",
+								"teams"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "l"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "fixture",
+			"item": [
+				{
+					"name": "/fixtures",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"matchDate\": \"2021-05-29\",\n    \"homeTeam\": \"5f0850a4030d2421458435c8\",\n    \"awayTeam\": \"5f085097030d2421458435c7\",\n    \"homeTeamScore\": 0,\n    \"awayTeamScore\": 0,\n    \"pendingMatch\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/fixtures",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"fixtures"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fixtures",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"matchDate\": \"2023-05-29\",\n    \"homeTeam\": \"5f0850a4030d2421458435c8\",\n    \"awayTeam\": \"5f085097030d2421458435c7\",\n    \"homeTeamScore\": 0,\n    \"awayTeamScore\": 0,\n    \"pendingMatch\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/fixtures",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"fixtures"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fixtures",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/fixtures?pending=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"fixtures"
+							],
+							"query": [
+								{
+									"key": "pending",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fixtures/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/fixtures/5f06ff09e610bb4781dcadd9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"fixtures",
+								"5f06ff09e610bb4781dcadd9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fixtures",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjA4NGNiNDAzMGQyNDIxNDU4NDM1YzYiLCJpYXQiOjE1OTQzODAwMzIsImV4cCI6MTU5NDU1MjgzMn0.6KmV9Gvc5CMbT1kFVZqvNSMlKhmwEmEKxAEMO99xBTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/fixtures/5f06df030a0ce8352ec1f994",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"fixtures",
+								"5f06df030a0ce8352ec1f994"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/search/fixtures?query=",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/search/fixtures?query=l",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"search",
+								"fixtures"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "l"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "/auth/signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullName\": \"Emmanuel Sage\",\n    \"email\": \"emmySageRights@gmail.com\",\n    \"password\": \"ojwoeij8230c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"email\": \"emmySageAdmin@gmail.com\",\n    \"password\": \"ojwoeij8230c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "56deb84a-556b-44b3-8bfd-6c273dfb3254",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c13ac853-5238-4b6c-8cbd-544d2d854723",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
