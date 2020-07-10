@@ -7,10 +7,10 @@
     "start": "npm run build && node ./dist/index.js",
     "start:dev": "nodemon --exec babel-node src/index.js",
     "build": "rm -rf ./dist && babel -d ./dist ./src -s",
-    "test": "NODE_ENV=test jest --runInBand --forceExit",
+    "test": "NODE_ENV=test jest --runInBand --testTimeout=30000 --forceExit",
     "test:watch": "NODE_ENV=test jest --watchAll --runInBand",
     "test:coverage": "NODE_ENV=test jest --coverage",
-    "test:coveralls": "NODE_ENV=test jest --coverage --coverageReporters=text-lcov | coveralls"
+    "test:coveralls": "NODE_ENV=test jest --coverage --testTimeout=30000 --coverageReporters=text-lcov --forceExit | coveralls"
   },
   "jest": {
     "testEnvironment": "node"

@@ -31,6 +31,7 @@ class TeamController {
       client.del(teamsKey)
       return res.status(201).json({
         status: 201,
+        message: 'Team was created',
         data: createTeam,
       })
     } catch (error) {
@@ -66,6 +67,7 @@ class TeamController {
       client.del(teamsKey)
       return res.status(200).json({
         status: 200,
+        message: 'Team was created',
         data: updateTeam,
       })
     } catch (error) {
@@ -86,12 +88,13 @@ class TeamController {
     }
 
     try {
-      await this.teamService.deleteTeam(id)
+      const deletedTeam = await this.teamService.deleteTeam(id)
 
       client.del(teamsKey)
       return res.status(200).json({
         status: 200,
-        data: 'team deleted',
+        message: 'Team deleted',
+        data: deletedTeam,
       })
     } catch (error) {
       return res.status(500).json({

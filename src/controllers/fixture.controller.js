@@ -40,6 +40,7 @@ class FixtureController {
 
       return res.status(201).json({
         status: 201,
+        message: 'Fixture was successfully created',
         data: createFixture,
       })
     } catch (error) {
@@ -63,6 +64,7 @@ class FixtureController {
       const updateFixture = await this.fixtureService.updateFixture(req.body)
 
       return res.status(200).json({
+        message: 'Fixture was successfully updated',
         status: 200,
         data: updateFixture,
       })
