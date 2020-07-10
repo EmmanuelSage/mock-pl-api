@@ -124,7 +124,13 @@ class FixtureController {
 
   async getFixtures(req, res) {
     try {
-      const fixtures = await this.fixtureService.getFixtures()
+      const {pending} = req.query
+      let fixtures
+      if (pending && (pending === 'true' || pending === 'false')) {
+        fixtures = await this.fixtureService.getFixtures(pending)
+      } else {
+        fixtures = await this.fixtureService.getFixtures()
+      }
 
       return res.status(200).json({
         status: 200,

@@ -84,14 +84,17 @@ class FixtureService {
     }
   }
 
-  async getFixtures() {
+  async getFixtures(pending) {
+    const sortBy = {}
+    if (pending) {
+      sortBy.pendingMatch = pending === 'true'
+    }
     try {
-      const gottenFixtures = await this.Fixture.find()
-        .select('-admin')
+      const gottenFixtures = await this.Fixture.find(sortBy)
         .select('-__v')
-        .populate('home', '_id name')
-        .populate('away', '_id name')
-        .sort('matchday')
+        .populate('homeTeam', '_id name')
+        .populate('awayTeam', '_id name')
+        .sort('matchDate')
         .exec()
 
       return gottenFixtures
