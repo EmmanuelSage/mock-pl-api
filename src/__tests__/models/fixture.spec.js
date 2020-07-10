@@ -31,12 +31,14 @@ describe('Fixture model tests', () => {
   })
 
   it('Should throw an error on invalid date', async () => {
-    const {matchDate, ...otherValues} = fixtureData
+    const {slug, matchDate, ...otherValues} = fixtureData
     try {
       const fixture = new Fixture({
         matchDate: 'invaliddate',
+        slug: 'https://slug1234',
         ...otherValues,
       })
+
       await fixture.save()
     } catch (error) {
       expect(error).toBeTruthy()

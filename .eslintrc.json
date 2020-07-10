@@ -18,6 +18,7 @@
 		"sourceType": "module"
 	},
 	"rules": {
+		"consistent-return":"off",
 		"no-underscore-dangle":"off",
 		"prettier/prettier": "error",
 		"jest/no-disabled-tests": "warn",

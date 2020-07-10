@@ -13,17 +13,19 @@ const router = Router()
 router.post('/fixtures', auth, adminAuth, (req, res) =>
   fixtureController.createFixture(req, res)
 )
-router.get('/fixtures', (req, res) => fixtureController.getFixtures(req, res))
-router.get('/fixtures/:id', (req, res) =>
+router.get('/fixtures', auth, (req, res) =>
+  fixtureController.getFixtures(req, res)
+)
+router.get('/fixtures/:id', auth, (req, res) =>
   fixtureController.getSpecificFixture(req, res)
 )
 router.get('/search/fixtures', (req, res) =>
   fixtureController.searchFixture(req, res)
 )
-router.patch('/fixtures/:id', adminAuth, (req, res) =>
+router.patch('/fixtures/:id', auth, adminAuth, (req, res) =>
   fixtureController.updateFixture(req, res)
 )
-router.delete('/fixtures/:id', adminAuth, (req, res) =>
+router.delete('/fixtures/:id', auth, adminAuth, (req, res) =>
   fixtureController.deleteFixture(req, res)
 )
 

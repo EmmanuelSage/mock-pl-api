@@ -4,6 +4,10 @@ language: node_js
 
 node_js:
   - "stable"
+  
+cache:
+  directories:
+    - "node_modules"
 
 services:
   - mongodb
@@ -13,11 +17,14 @@ notifications:
 
 env:
   TEST_MONGODB_URI: "mongodb://127.0.0.1:27017/mplapiTestTravis"
+  REDIS_URL: "redis://127.0.0.1:6379"
+  REDIS_SESSION_SECRET: "travisRedisSecret"
   global:
     - NODE_ENV=test
 
 before_script:
   - sleep 15
+  - sudo redis-server /etc/redis/redis.conf --port 6379
 
 after_success:
   - npm run test:coveralls

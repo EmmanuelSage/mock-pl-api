@@ -1,6 +1,9 @@
+import client from '../redis'
 import {isValidObjectId} from '../utils/helper'
 import Team from '../models/team'
 import validate from '../utils/validate'
+
+const teamsKey = 'teams'
 
 class TeamController {
   constructor(teamService) {
@@ -24,6 +27,8 @@ class TeamController {
       })
 
       const createTeam = await this.teamService.createTeam(team)
+
+      client.del(teamsKey)
       return res.status(201).json({
         status: 201,
         data: createTeam,
@@ -57,6 +62,8 @@ class TeamController {
 
     try {
       const updateTeam = await this.teamService.updateTeam(id, name)
+
+      client.del(teamsKey)
       return res.status(200).json({
         status: 200,
         data: updateTeam,
@@ -80,6 +87,8 @@ class TeamController {
 
     try {
       await this.teamService.deleteTeam(id)
+
+      client.del(teamsKey)
       return res.status(200).json({
         status: 200,
         data: 'team deleted',
@@ -120,10 +129,21 @@ class TeamController {
   }
 
   async getTeams(req, res) {
+    client.get(teamsKey, async (_err, result) => {
+      if (result) {
+        return res.status(200).json({
+          source: 'cache',
+          status: 200,
+          data: JSON.parse(result),
+        })
+      }
+    })
     try {
       const teams = await this.teamService.getTeams()
+      client.setex(teamsKey, 3600, JSON.stringify(teams))
 
       return res.status(200).json({
+        source: 'server',
         status: 200,
         data: teams,
       })

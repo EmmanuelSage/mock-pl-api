@@ -62,11 +62,12 @@ class UserService {
         throw new Error('no record found')
       }
 
-      const {fullName, role} = gottenUser
+      const {fullName, email, role} = gottenUser
 
       const publicUser = {
         _id: gottenUser._id,
         fullName,
+        email,
         role,
       }
 
