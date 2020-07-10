@@ -6,9 +6,13 @@ dotenv.config()
 
 const mongoURI = getDbConnURI()
 
-mongoose.connect(mongoURI, {
+const connectionOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
-})
+}
+
+const connectDb = () => mongoose.connect(mongoURI, connectionOptions)
+
+export default connectDb

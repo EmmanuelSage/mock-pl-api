@@ -6,18 +6,17 @@ import {connect, clearDatabase, closeDatabase} from '../../setupTest/config'
 
 let seededUser
 
-// Connect to in-memory db before test
 beforeAll(async () => {
   await connect()
 })
 beforeEach(async () => {
   seededUser = await seedUser()
 })
-// Clear all test data after every test.
+
 afterEach(async () => {
   await clearDatabase()
 })
-// Remove and close the db and server.
+
 afterAll(async () => {
   await closeDatabase()
 })
@@ -61,7 +60,6 @@ describe('UserService', () => {
   describe('getUser', () => {
     it('should not get an user if record does not exists', async () => {
       try {
-        // This user does not exist
         const userObjID = generateObjectId('5e682d0d580b5a6fb795b842')
 
         const userService = new UserService()

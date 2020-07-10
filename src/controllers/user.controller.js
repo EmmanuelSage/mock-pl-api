@@ -27,10 +27,11 @@ class UserController {
       return res.status(201).json({
         status: 201,
         data: newUser,
+        message: 'Sign up was successfull',
       })
     } catch (error) {
       if (error.message.includes('409')) {
-        res
+        return res
           .status(409)
           .json({status: 409, error: 'Email has already been registered'})
       }
@@ -57,11 +58,12 @@ class UserController {
 
       return res.status(200).json({
         status: 200,
+        message: 'Login was successfull',
         token,
       })
     } catch (error) {
-      return res.status(500).json({
-        status: 500,
+      return res.status(401).json({
+        status: 401,
         error: error.message,
       })
     }

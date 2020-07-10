@@ -6,7 +6,7 @@ import connectRedis from 'connect-redis'
 import dotenv from 'dotenv'
 import client, {rateLimiter} from './redis'
 import routes from './routes'
-import './db/mongoose'
+import connectDb from './db/mongoose'
 
 dotenv.config()
 
@@ -36,5 +36,14 @@ app.get('/', (req, res) => {
 
 app.use(rateLimiter)
 app.use(routes)
+
+app.get('*', (req, res) => {
+  res.send('Route does not exist')
+})
+
+connectDb().then(async () => {
+  // eslint-disable-next-line no-console
+  console.log('mongodb connected')
+})
 
 export default app

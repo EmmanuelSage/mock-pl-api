@@ -48,7 +48,11 @@ describe('UserController', () => {
       expect(res.status).toHaveBeenCalledTimes(1)
       expect(res.json).toHaveBeenCalledTimes(1)
       expect(res.status).toHaveBeenCalledWith(201)
-      expect(res.json).toHaveBeenCalledWith({status: 201, data: req.body})
+      expect(res.json).toHaveBeenCalledWith({
+        status: 201,
+        data: req.body,
+        message: 'Sign up was successfull',
+      })
     })
 
     it('Should catch error from try catch', async () => {
@@ -160,9 +164,9 @@ describe('UserController', () => {
       expect(errorStub).toHaveBeenCalledTimes(1)
       expect(res.status).toHaveBeenCalledTimes(1)
       expect(res.json).toHaveBeenCalledTimes(1)
-      expect(res.status).toHaveBeenCalledWith(500)
+      expect(res.status).toHaveBeenCalledWith(401)
       expect(res.json).toHaveBeenCalledWith({
-        status: 500,
+        status: 401,
         error: 'error from login service',
       })
     })
@@ -191,7 +195,11 @@ describe('UserController', () => {
       expect(res.status).toHaveBeenCalledTimes(1)
       expect(res.json).toHaveBeenCalledTimes(1)
       expect(res.status).toHaveBeenCalledWith(200)
-      expect(res.json).toHaveBeenCalledWith({status: 200, token: stubValue})
+      expect(res.json).toHaveBeenCalledWith({
+        status: 200,
+        token: stubValue,
+        message: 'Login was successfull',
+      })
     })
   })
 })
