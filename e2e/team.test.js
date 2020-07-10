@@ -11,7 +11,6 @@ let user
 let teamId
 
 beforeAll(async () => {
-  jest.setTimeout(20000)
   await Team.deleteMany()
   await Fixture.deleteMany()
   await User.deleteMany()

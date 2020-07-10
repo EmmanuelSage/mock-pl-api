@@ -13,7 +13,6 @@ let seededTeams
 let dataTosend
 
 beforeAll(async () => {
-  jest.setTimeout(20000)
   await Fixture.deleteMany()
   await Team.deleteMany()
   adminUser = await seedFixtureAdmin()

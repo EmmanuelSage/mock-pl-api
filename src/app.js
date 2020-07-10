@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 import client, {rateLimiter} from './redis'
 import routes from './routes'
 import connectDb from './db/mongoose'
+// import seedAllModels from './seeder'
 
 dotenv.config()
 
@@ -43,6 +44,7 @@ app.get('*', (req, res) => {
 
 connectDb().then(async () => {
   // eslint-disable-next-line no-console
+  // await seedAllModels()
   console.log('mongodb connected')
 })
 

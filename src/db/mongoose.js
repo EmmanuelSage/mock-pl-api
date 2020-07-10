@@ -4,7 +4,7 @@ import getDbConnURI from './envConfig'
 
 dotenv.config()
 
-const mongoURI = getDbConnURI()
+const mongoURI = process.env.MONGODB_URI || getDbConnURI()
 
 const connectionOptions = {
   useNewUrlParser: true,
