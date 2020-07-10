@@ -105,6 +105,17 @@ const validate = {
     }
     return errors
   },
+
+  searchValidate(req) {
+    const {query} = req.query
+
+    const errors = []
+
+    if (!query) {
+      errors.push({queryError: 'query is required'})
+    }
+    return errors
+  },
 }
 
 export default validate

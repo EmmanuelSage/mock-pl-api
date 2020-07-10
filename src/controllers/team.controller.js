@@ -54,7 +54,6 @@ class TeamController {
     }
 
     const {name} = req.body
-    console.log(name, id)
 
     try {
       const updateTeam = await this.teamService.updateTeam(id, name)
@@ -127,6 +126,31 @@ class TeamController {
       return res.status(200).json({
         status: 200,
         data: teams,
+      })
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: error.message,
+      })
+    }
+  }
+
+  async searchTeam(req, res) {
+    const errors = validate.searchValidate(req)
+    if (errors.length > 0) {
+      return res.status(400).json({
+        status: 400,
+        errors,
+      })
+    }
+
+    const query = req.query.query.trim()
+
+    try {
+      const searchResult = await this.teamService.searchTeam(query)
+      return res.status(200).json({
+        status: 200,
+        data: searchResult,
       })
     } catch (error) {
       return res.status(500).json({

@@ -17,7 +17,7 @@ describe('Fixture model tests', () => {
 
   const fixtureData = {
     matchDate: new Date('2012-05-29'),
-    uniqueLink: 'https://uniquelink18392848',
+    slug: 'https://slug',
     homeTeam: new mongoose.Types.ObjectId(),
     awayTeam: new mongoose.Types.ObjectId(),
     homeTeamScore: 0,

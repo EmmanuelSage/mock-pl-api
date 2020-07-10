@@ -1,10 +1,12 @@
 import {Router} from 'express'
 import FixtureController from '../controllers/fixture.controller'
 import FixtureService from '../services/fixture.service'
+import TeamService from '../services/team.service'
 import {auth, adminAuth} from '../middlewares/auth'
 
 const fixtureService = new FixtureService()
-const fixtureController = new FixtureController(fixtureService)
+const teamService = new TeamService()
+const fixtureController = new FixtureController(fixtureService, teamService)
 
 const router = Router()
 
@@ -14,6 +16,9 @@ router.post('/fixtures', auth, adminAuth, (req, res) =>
 router.get('/fixtures', (req, res) => fixtureController.getFixtures(req, res))
 router.get('/fixtures/:id', (req, res) =>
   fixtureController.getSpecificFixture(req, res)
+)
+router.get('/search/fixtures', (req, res) =>
+  fixtureController.searchFixture(req, res)
 )
 router.patch('/fixtures/:id', adminAuth, (req, res) =>
   fixtureController.updateFixture(req, res)

@@ -94,6 +94,19 @@ class TeamService {
       throw new Error(error)
     }
   }
+
+  async searchTeam(name) {
+    try {
+      const teams = await this.team
+        .find({
+          name: {$regex: new RegExp(name, 'i')},
+        })
+        .exec()
+      return teams
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
 }
 
 export default TeamService

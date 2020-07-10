@@ -8,22 +8,30 @@ class FixtureService {
 
   async createFixture(fixture) {
     try {
-      const record = await this.Fixture.findOne({
+      const existingFixture = await this.Fixture.findOne({
         $and: [{homeTeam: fixture.homeTeam}, {awayTeam: fixture.awayTeam}],
       })
 
-      if (record) {
+      if (existingFixture) {
         throw new Error('record already exists')
       }
 
-      const currentDate = Date.now().toString()
+      const createdFixture = await Fixture.create(fixture)
+      const populatedFixture = await this.populateFixture(createdFixture._id)
+      const {homeTeam, awayTeam} = populatedFixture
+      const rawSlug = `${homeTeam.name}_${awayTeam.name}_${Date.now()}`
+      const cleanSlug = rawSlug.split(' ').join('_')
+      const fixtureSlug = {
+        slug: cleanSlug,
+      }
+      const {slug, ...fixtureData} = createdFixture._doc
+      const slugedFixture = {
+        ...fixtureSlug,
+        ...fixtureData,
+      }
+      await this.updateFixture(slugedFixture)
 
-      const createdFixture = await Fixture.create({
-        uniqueLink: `${fixture.homeTeam}-${fixture.awayTeam}-${currentDate}`,
-        ...fixture,
-      })
-
-      return createdFixture
+      return slugedFixture
     } catch (error) {
       throw new Error(error)
     }
@@ -61,7 +69,7 @@ class FixtureService {
       })
 
       if (!record) {
-        throw new Error('Fixture no Found')
+        throw new Error('Fixture not Found')
       }
 
       const updatedFixture = await this.Fixture.findOneAndUpdate(
@@ -102,6 +110,24 @@ class FixtureService {
     } catch (error) {
       throw new Error(error)
     }
+  }
+
+  async searchFixture(query) {
+    try {
+      const fixtures = await this.Fixture.find({
+        slug: {$regex: new RegExp(query, 'i')},
+      }).exec()
+      return fixtures
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+
+  async populateFixture(fixtureId) {
+    const populatedFixture = await this.Fixture.findById(fixtureId)
+    await populatedFixture.populate('homeTeam').execPopulate()
+    await populatedFixture.populate('awayTeam').execPopulate()
+    return populatedFixture
   }
 }
 

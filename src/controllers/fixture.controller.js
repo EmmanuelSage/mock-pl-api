@@ -2,8 +2,9 @@ import {isValidObjectId} from '../utils/helper'
 import validate from '../utils/validate'
 
 class FixtureController {
-  constructor(fixtureService) {
+  constructor(fixtureService, teamService) {
     this.fixtureService = fixtureService
+    this.teamService = teamService
   }
 
   async createFixture(req, res) {
@@ -24,6 +25,8 @@ class FixtureController {
     } = req.body
 
     try {
+      await this.teamService.checkTeams(homeTeam, awayTeam)
+
       const fixture = {
         homeTeam,
         awayTeam,
@@ -126,6 +129,31 @@ class FixtureController {
       return res.status(200).json({
         status: 200,
         data: fixtures,
+      })
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        error: error.message,
+      })
+    }
+  }
+
+  async searchFixture(req, res) {
+    const errors = validate.searchValidate(req)
+    if (errors.length > 0) {
+      return res.status(400).json({
+        status: 400,
+        errors,
+      })
+    }
+
+    const query = req.query.query.trim()
+
+    try {
+      const searchResult = await this.fixtureService.searchFixture(query)
+      return res.status(200).json({
+        status: 200,
+        data: searchResult,
       })
     } catch (error) {
       return res.status(500).json({

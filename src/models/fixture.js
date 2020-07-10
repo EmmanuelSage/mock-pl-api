@@ -5,9 +5,10 @@ const fixtureSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  uniqueLink: {
+  slug: {
     type: String,
     unique: true,
+    default: 'slug',
   },
   homeTeam: {
     type: mongoose.Schema.Types.ObjectId,
@@ -33,7 +34,7 @@ const fixtureSchema = new mongoose.Schema({
   },
 })
 
-fixtureSchema.index({uniqueLink: 'text'})
+fixtureSchema.index({slug: 'text'})
 
 const Fixture = mongoose.model('Fixture', fixtureSchema)
 
