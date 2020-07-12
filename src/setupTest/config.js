@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-// setup to connect to in memory db
 export const connect = async () => {
   await mongoose.connect(global.__MONGO_URI__, {
     useNewUrlParser: true,

@@ -101,6 +101,7 @@ class TeamService {
         .find({
           name: {$regex: new RegExp(name, 'i')},
         })
+        .select('-__v')
         .exec()
       return teams
     } catch (error) {

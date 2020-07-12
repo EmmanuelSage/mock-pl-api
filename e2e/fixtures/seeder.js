@@ -50,7 +50,6 @@ export async function seedTeamAdmin() {
 
 export async function seedTeamUser() {
   const user = {
-    // _id: generateObjectId('5f06df030a0ce8352ec1f992'),
     _id: generateObjectId(),
     fullName: 'Teamer User',
     email: 'teameruser@example.com',

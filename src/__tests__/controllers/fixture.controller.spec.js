@@ -33,7 +33,6 @@ describe('FixtureController', () => {
         },
       }
 
-      // this is a mock response, it can be anything you want
       const errors = [
         {home: 'a valid home team is required'},
         {matchday: "can't create a fixture in the past"},

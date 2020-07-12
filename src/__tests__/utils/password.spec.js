@@ -4,7 +4,6 @@ import password from '../../utils/password'
 describe('Password', () => {
   describe('hashPassword', () => {
     it('should hash a password', () => {
-      // hashing a password can take a lot of time, so we will mock the methods:
       const salt = jest
         .spyOn(bcrypt, 'genSaltSync')
         .mockReturnValue('dkhfksdjf')

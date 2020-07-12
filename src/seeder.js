@@ -81,6 +81,7 @@ const createSeededTeams = async () => {
 }
 
 const createSeededFixtures = async () => {
+  await Fixture.deleteMany({})
   const fixtures = [
     {
       matchDate: '2021-05-29',
@@ -89,7 +90,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 2,
       awayTeamScore: 0,
       pendingMatch: true,
-      slug: 'uniquesludhgssdfdsfsdf',
+      slug: 'Fulham_FC_Crystal_Palace_FC_1594457254584',
     },
     {
       matchDate: '2019-05-29',
@@ -98,7 +99,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 0,
       awayTeamScore: 1,
       pendingMatch: false,
-      slug: 'uniquesludhgssdiopfdsvdfbdbdbdfb',
+      slug: 'Huddersfield_Town_AFC_Chelsea_FC_1594457328761',
     },
     {
       matchDate: '2021-05-29',
@@ -107,7 +108,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 3,
       awayTeamScore: 2,
       pendingMatch: true,
-      slug: 'uniquesluddhjtyusd12hdsfsdf',
+      slug: 'Watford_FC_Everton_FC_1594457362400',
     },
     {
       matchDate: '2019-05-29',
@@ -116,7 +117,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 1,
       awayTeamScore: 2,
       pendingMatch: false,
-      slug: 'uniquesludqwer1234sdf',
+      slug: 'Liverpool_FC_Arsenal_FC_1594457393758',
     },
     {
       matchDate: '2021-05-29',
@@ -125,7 +126,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 0,
       awayTeamScore: 0,
       pendingMatch: true,
-      slug: 'uniquesludqwasdgfdersdf',
+      slug: 'Fulham_FC_Chelsea_FC_1594457425627',
     },
     {
       matchDate: '2019-05-29',
@@ -134,7 +135,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 1,
       awayTeamScore: 1,
       pendingMatch: false,
-      slug: 'uniquesludqwehjklrsdf',
+      slug: 'Crystal_Palace_FC_Watford_FC_1594457453368',
     },
     {
       matchDate: '2021-05-29',
@@ -143,7 +144,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 4,
       awayTeamScore: 2,
       pendingMatch: true,
-      slug: 'uniqueszxcvbludqwersdf',
+      slug: 'Huddersfield_Town AFC_Everton_FC_1594457483249',
     },
     {
       matchDate: '2019-05-29',
@@ -152,7 +153,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 2,
       awayTeamScore: 1,
       pendingMatch: true,
-      slug: 'uniquesluvbnmmvdqwersdf',
+      slug: 'Chelsea_FC_Liverpool_FC_1594457533087',
     },
     {
       matchDate: '2021-05-29',
@@ -161,7 +162,7 @@ const createSeededFixtures = async () => {
       homeTeamScore: 4,
       awayTeamScore: 2,
       pendingMatch: false,
-      slug: 'uniqueslucgywfbjidqwersdf',
+      slug: 'Watford_FC_Arsenal FC_1594457562168',
     },
   ]
   await Fixture.insertMany(fixtures)

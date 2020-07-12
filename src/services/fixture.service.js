@@ -26,8 +26,8 @@ class FixtureService {
       }
       const {slug, ...fixtureData} = createdFixture._doc
       const slugedFixture = {
-        ...fixtureSlug,
         ...fixtureData,
+        ...fixtureSlug,
       }
       await this.updateFixture(slugedFixture)
 
@@ -37,7 +37,6 @@ class FixtureService {
     }
   }
 
-  // This fixture can both be seen by the user and the admin
   async getSpecificFixture(fixtureId) {
     try {
       const fixtureIdObj = generateObjectId(fixtureId)
@@ -47,8 +46,8 @@ class FixtureService {
         {admin: 0}
       )
         .select('-__v')
-        .populate('home', '_id name')
-        .populate('away', '_id name')
+        .populate('homeTeam', '_id name')
+        .populate('awayTeam', '_id name')
         .exec()
       if (!gottenFixture) {
         throw new Error('no record found')
@@ -119,7 +118,11 @@ class FixtureService {
     try {
       const fixtures = await this.Fixture.find({
         slug: {$regex: new RegExp(query, 'i')},
-      }).exec()
+      })
+        .select('-__v')
+        .populate('homeTeam', '_id name')
+        .populate('awayTeam', '_id name')
+        .exec()
       return fixtures
     } catch (error) {
       throw new Error(error)
