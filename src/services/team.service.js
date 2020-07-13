@@ -10,7 +10,7 @@ class TeamService {
     try {
       const record = await this.team.findOne({name: team.name})
       if (record) {
-        throw new Error('Team already exists')
+        return null
       }
 
       const createdTeam = await this.team.create(team)
@@ -29,8 +29,9 @@ class TeamService {
         .findOne({_id: teamIdObject})
         .select('-__v')
         .exec()
+
       if (!gottenTeam) {
-        throw new Error('no record found')
+        return null
       }
       return gottenTeam
     } catch (error) {
@@ -51,7 +52,7 @@ class TeamService {
       const team = await this.team.findOne({_id: generateObjectId(teamId)})
 
       if (!team) {
-        throw new Error('Team does not exist')
+        return null
       }
       team.name = teamName
 
@@ -60,7 +61,7 @@ class TeamService {
       return team
     } catch (error) {
       if (error.message.includes('duplicate')) {
-        throw new Error('record already exists')
+        return '409'
       }
       throw error
     }
@@ -72,7 +73,7 @@ class TeamService {
 
       const deleted = await this.team.deleteOne({_id: teamIdObj})
       if (deleted.deletedCount === 0) {
-        throw new Error('Error deleting team')
+        return null
       }
       return deleted
     } catch (error) {
@@ -87,7 +88,7 @@ class TeamService {
       const records = await this.team.find().where('_id').in(ids).exec()
 
       if (records.length !== 2) {
-        throw new Error('Teams do not exist')
+        return null
       }
       return records
     } catch (error) {

@@ -84,7 +84,7 @@ describe('Update Team', () => {
       .send({
         name: 'Tottenham Hotspur FC',
       })
-    expect(res.body.status).toEqual(500)
+    expect(res.body.status).toEqual(400)
     expect(res.body.error).toEqual('Team does not exist')
   })
 })

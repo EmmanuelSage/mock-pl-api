@@ -15,6 +15,9 @@ export const auth = async (req, res, next) => {
       const userService = new UserService()
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
       const user = await userService.getUser(decoded._id)
+      if (!user) {
+        return res.status(401).json({status: 401, error: 'User not found'})
+      }
       req.session.user = user
       next()
     } catch (error) {

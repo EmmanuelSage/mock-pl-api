@@ -43,6 +43,6 @@ describe('User Sign In', () => {
       password: 'fakepassword',
     })
     expect(res.body.status).toEqual(401)
-    expect(res.body.error).toEqual('Error: Email or password is incorrect')
+    expect(res.body.error).toEqual('Email or password is incorrect')
   })
 })

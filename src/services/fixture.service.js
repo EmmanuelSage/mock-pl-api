@@ -13,11 +13,12 @@ class FixtureService {
       })
 
       if (existingFixture) {
-        throw new Error('record already exists')
+        return null
       }
 
       const createdFixture = await Fixture.create(fixture)
       const populatedFixture = await this.populateFixture(createdFixture._id)
+
       const {homeTeam, awayTeam} = populatedFixture
       const rawSlug = `${homeTeam.name}_${awayTeam.name}_${Date.now()}`
       const cleanSlug = rawSlug.split(' ').join('_')
@@ -29,7 +30,8 @@ class FixtureService {
         ...fixtureData,
         ...fixtureSlug,
       }
-      await this.updateFixture(slugedFixture)
+
+      await this.updateFixture(slugedFixture._id)
 
       return slugedFixture
     } catch (error) {
@@ -49,8 +51,9 @@ class FixtureService {
         .populate('homeTeam', '_id name')
         .populate('awayTeam', '_id name')
         .exec()
+
       if (!gottenFixture) {
-        throw new Error('no record found')
+        return null
       }
       return gottenFixture
     } catch (error) {
@@ -58,22 +61,17 @@ class FixtureService {
     }
   }
 
-  async updateFixture(fixture) {
+  async updateFixture(fixtureId) {
     try {
-      const record = await this.Fixture.findOne({
-        $and: [
-          {homeTeam: generateObjectId(fixture.homeTeam)},
-          {awayTeam: generateObjectId(fixture.awayTeam)},
-        ],
-      })
+      const record = await this.Fixture.findOne(generateObjectId(fixtureId))
 
       if (!record) {
-        throw new Error('Fixture not Found')
+        return null
       }
 
       const updatedFixture = await this.Fixture.findOneAndUpdate(
         {_id: record._id},
-        {$set: fixture},
+        {$set: fixtureId},
         {new: true}
       )
 
@@ -106,8 +104,9 @@ class FixtureService {
     try {
       const deleted = await this.Fixture.deleteOne({_id: fixtureId})
       if (deleted.deletedCount === 0) {
-        throw new Error('something went wrong')
+        return null
       }
+
       return deleted
     } catch (error) {
       throw new Error(error)

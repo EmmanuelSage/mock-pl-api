@@ -25,7 +25,14 @@ class FixtureController {
     } = req.body
 
     try {
-      await this.teamService.checkTeams(homeTeam, awayTeam)
+      const foundTeams = await this.teamService.checkTeams(homeTeam, awayTeam)
+
+      if (!foundTeams) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Teams do not exist',
+        })
+      }
 
       const fixture = {
         homeTeam,
@@ -38,6 +45,13 @@ class FixtureController {
 
       const createFixture = await this.fixtureService.createFixture(fixture)
 
+      if (!createFixture) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Record already exists',
+        })
+      }
+
       return res.status(201).json({
         status: 201,
         message: 'Fixture was successfully created',
@@ -46,12 +60,20 @@ class FixtureController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
 
   async updateFixture(req, res) {
+    const {id} = req.params
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'fixture id is not valid',
+      })
+    }
+
     const errors = validate.fixtureValidate(req)
     if (errors.length > 0) {
       return res.status(400).json({
@@ -61,7 +83,14 @@ class FixtureController {
     }
 
     try {
-      const updateFixture = await this.fixtureService.updateFixture(req.body)
+      const updateFixture = await this.fixtureService.updateFixture(id)
+
+      if (!updateFixture) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Fixture not Found',
+        })
+      }
 
       return res.status(200).json({
         message: 'Fixture was successfully updated',
@@ -71,7 +100,7 @@ class FixtureController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -86,7 +115,14 @@ class FixtureController {
     }
 
     try {
-      await this.fixtureService.deleteFixture(id)
+      const deletedFixture = await this.fixtureService.deleteFixture(id)
+
+      if (!deletedFixture) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Fixture was not Found',
+        })
+      }
 
       return res.status(200).json({
         status: 200,
@@ -95,7 +131,7 @@ class FixtureController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -112,6 +148,12 @@ class FixtureController {
     try {
       const fixture = await this.fixtureService.getSpecificFixture(id)
 
+      if (!fixture) {
+        return res.status(400).json({
+          status: 400,
+          error: 'No record with the Id was found',
+        })
+      }
       return res.status(200).json({
         status: 200,
         data: fixture,
@@ -119,7 +161,7 @@ class FixtureController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -141,7 +183,7 @@ class FixtureController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -166,7 +208,7 @@ class FixtureController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }

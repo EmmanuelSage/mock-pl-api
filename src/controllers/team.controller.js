@@ -28,6 +28,13 @@ class TeamController {
 
       const createTeam = await this.teamService.createTeam(team)
 
+      if (!createTeam) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Team already exists',
+        })
+      }
+
       client.del(teamsKey)
       return res.status(201).json({
         status: 201,
@@ -37,7 +44,7 @@ class TeamController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -64,6 +71,20 @@ class TeamController {
     try {
       const updateTeam = await this.teamService.updateTeam(id, name)
 
+      if (!updateTeam) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Team does not exist',
+        })
+      }
+
+      if (updateTeam === '409') {
+        return res.status(409).json({
+          status: 409,
+          error: 'Team already exists',
+        })
+      }
+
       client.del(teamsKey)
       return res.status(200).json({
         status: 200,
@@ -73,7 +94,7 @@ class TeamController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -90,6 +111,13 @@ class TeamController {
     try {
       const deletedTeam = await this.teamService.deleteTeam(id)
 
+      if (!deletedTeam) {
+        return res.status(400).json({
+          status: 400,
+          error: 'Error deleting team',
+        })
+      }
+
       client.del(teamsKey)
       return res.status(200).json({
         status: 200,
@@ -99,7 +127,7 @@ class TeamController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -116,6 +144,13 @@ class TeamController {
     try {
       try {
         const gottenTeam = await this.teamService.getTeam(id)
+
+        if (!gottenTeam) {
+          return res.status(400).json({
+            status: 400,
+            error: 'No team with the Id was found',
+          })
+        }
         return res.status(200).json({
           status: 200,
           data: gottenTeam,
@@ -126,7 +161,7 @@ class TeamController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -153,7 +188,7 @@ class TeamController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -178,7 +213,7 @@ class TeamController {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }

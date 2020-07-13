@@ -12,7 +12,7 @@ class UserService {
       const existingUser = await this.User.findOne({email: user.email})
 
       if (existingUser) {
-        throw new Error('record exists : 409')
+        return null
       }
 
       const newUser = {email: user.email, fullName: user.fullName}
@@ -23,13 +23,14 @@ class UserService {
 
       const {_id, fullName, email} = createdUser
 
+      const userToken = generateToken(_id)
+
       const createdUserData = {
         _id,
         fullName,
         email,
       }
-
-      return createdUserData
+      return {createdUserData, userToken}
     } catch (error) {
       throw new Error(error)
     }
@@ -39,7 +40,7 @@ class UserService {
     try {
       const user = await this.User.findOne({email})
       if (!user) {
-        throw new Error('Email or password is incorrect')
+        return null
       }
       const validPassword = password.checkValidPassword(pass, user.password)
 
@@ -47,7 +48,7 @@ class UserService {
         const token = generateToken(user._id)
         return token
       }
-      throw new Error('Email or password is incorrect')
+      return null
     } catch (error) {
       throw new Error(error)
     }
@@ -59,7 +60,7 @@ class UserService {
     try {
       const gottenUser = await this.User.findOne({_id: userObjID})
       if (!gottenUser) {
-        throw new Error('no record found')
+        return null
       }
 
       const {fullName, email, role} = gottenUser

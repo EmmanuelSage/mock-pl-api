@@ -23,21 +23,26 @@ class UserController {
     }
 
     try {
-      const newUser = await this.userService.createUser(user)
-      return res.status(201).json({
-        status: 201,
-        data: newUser,
-        message: 'Sign up was successfull',
-      })
-    } catch (error) {
-      if (error.message.includes('409')) {
+      const userData = await this.userService.createUser(user)
+
+      if (!userData) {
         return res
           .status(409)
           .json({status: 409, error: 'Email has already been registered'})
       }
+
+      const {createdUserData, userToken} = userData
+
+      return res.status(201).json({
+        status: 201,
+        data: createdUserData,
+        message: 'Sign up was successfull',
+        token: userToken,
+      })
+    } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: error.message,
+        error: 'Something went wrong',
       })
     }
   }
@@ -56,15 +61,22 @@ class UserController {
     try {
       const token = await this.userService.loginUser(email, password)
 
+      if (!token) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Email or password is incorrect',
+        })
+      }
+
       return res.status(200).json({
         status: 200,
         message: 'Login was successfull',
         token,
       })
     } catch (error) {
-      return res.status(401).json({
-        status: 401,
-        error: error.message,
+      return res.status(500).json({
+        status: 500,
+        error: 'Something went wrong',
       })
     }
   }

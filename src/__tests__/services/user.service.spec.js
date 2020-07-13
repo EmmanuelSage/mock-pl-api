@@ -31,9 +31,8 @@ describe('UserService', () => {
       }
       const userService = new UserService()
 
-      await expect(userService.createUser(user)).rejects.toThrow(
-        'record exists : 409'
-      )
+      const nullRecord = await userService.createUser(user)
+      await expect(nullRecord).toBe(null)
     })
 
     it('should create a new user', async () => {
@@ -51,9 +50,9 @@ describe('UserService', () => {
       const user = await userService.createUser(userNew)
 
       expect(hashPass).toHaveBeenCalled()
-      expect(user._id).toBeDefined()
-      expect(user.fullName).toBe(userNew.fullName)
-      expect(user.role).toBe(userNew.role)
+      expect(user.createdUserData._id).toBeDefined()
+      expect(user.createdUserData.fullName).toBe(userNew.fullName)
+      expect(user.createdUserData.role).toBe(userNew.role)
     })
   })
 

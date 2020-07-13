@@ -48,11 +48,6 @@ describe('UserController', () => {
       expect(res.status).toHaveBeenCalledTimes(1)
       expect(res.json).toHaveBeenCalledTimes(1)
       expect(res.status).toHaveBeenCalledWith(201)
-      expect(res.json).toHaveBeenCalledWith({
-        status: 201,
-        data: req.body,
-        message: 'Sign up was successfull',
-      })
     })
 
     it('Should catch error from try catch', async () => {
@@ -83,7 +78,7 @@ describe('UserController', () => {
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalledWith({
         status: 500,
-        error: 'Error',
+        error: 'Something went wrong',
       })
     })
 
@@ -101,7 +96,7 @@ describe('UserController', () => {
       const stub = jest
         .spyOn(userService, 'createUser')
         .mockImplementation(() => {
-          throw new Error('error')
+          return null
         })
 
       userController = new UserController(userService)
@@ -112,10 +107,10 @@ describe('UserController', () => {
       expect(stub).toHaveBeenCalledTimes(1)
       expect(res.status).toHaveBeenCalledTimes(1)
       expect(res.json).toHaveBeenCalledTimes(1)
-      expect(res.status).toHaveBeenCalledWith(500)
+      expect(res.status).toHaveBeenCalledWith(409)
       expect(res.json).toHaveBeenCalledWith({
-        status: 500,
-        error: 'error',
+        status: 409,
+        error: 'Email has already been registered',
       })
     })
   })
@@ -153,7 +148,7 @@ describe('UserController', () => {
       const stub = jest
         .spyOn(userService, 'loginUser')
         .mockImplementation(() => {
-          throw new Error('error from login service')
+          return null
         })
 
       userController = new UserController(userService)
@@ -167,7 +162,7 @@ describe('UserController', () => {
       expect(res.status).toHaveBeenCalledWith(401)
       expect(res.json).toHaveBeenCalledWith({
         status: 401,
-        error: 'error from login service',
+        error: 'Email or password is incorrect',
       })
     })
 
